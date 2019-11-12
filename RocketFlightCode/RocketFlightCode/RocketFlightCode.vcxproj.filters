@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{89651001-6276-4e4e-b5c9-53d73fb8f34d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{80234fbb-bc6b-4f70-8526-2f0248650427}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\drivers">
+      <UniqueIdentifier>{068d5741-6247-4511-9e1d-a4f7b8332479}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\drivers">
+      <UniqueIdentifier>{296a1c1f-3bac-44b4-9e76-32de302277c7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
