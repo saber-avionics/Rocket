@@ -60,10 +60,34 @@
   <ImportGroup Label="Shared" />
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <IncludePath>$(SolutionDir)RocketFlightCode\include;$(IncludePath)</IncludePath>
+    <SourcePath>$(SolutionDir)RocketFlightCode\source;$(SourcePath)</SourcePath>
+  </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\drivers\AirTemp.cpp" />
+    <ClCompile Include="source\drivers\altitude.cpp" />
+    <ClCompile Include="source\drivers\BatteryTemp.cpp" />
+    <ClCompile Include="source\drivers\FlightStates.cpp" />
+    <ClCompile Include="source\drivers\Mechanical.cpp" />
+    <ClCompile Include="source\drivers\pressure.cpp" />
+    <ClCompile Include="source\drivers\UART.cpp" />
   </ItemGroup>
-  <ItemDefinitionGroup />
+  <ItemGroup>
+    <ClInclude Include="include\drivers\AirTemp.h" />
+    <ClInclude Include="include\drivers\altitude.h" />
+    <ClInclude Include="include\drivers\BatteryTemp.h" />
+    <ClInclude Include="include\drivers\FlightStates.h" />
+    <ClInclude Include="include\drivers\Mechanical.h" />
+    <ClInclude Include="include\drivers\pressure.h" />
+    <ClInclude Include="include\drivers\UART.h" />
+  </ItemGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)RocketFlightCode\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
 </Project>

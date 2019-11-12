@@ -1,22 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source">
-      <UniqueIdentifier>{89651001-6276-4e4e-b5c9-53d73fb8f34d}</UniqueIdentifier>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\drivers\AirTemp.cpp">
+      <Filter>source\drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\drivers\altitude.cpp">
+      <Filter>source\drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\drivers\BatteryTemp.cpp">
+      <Filter>source\drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\drivers\FlightStates.cpp">
+      <Filter>source\drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\drivers\Mechanical.cpp">
+      <Filter>source\drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\drivers\pressure.cpp">
+      <Filter>source\drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\drivers\UART.cpp">
+      <Filter>source\drivers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{c49f89ca-dd18-49d3-a414-76883959d396}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Include">
-      <UniqueIdentifier>{80234fbb-bc6b-4f70-8526-2f0248650427}</UniqueIdentifier>
+    <Filter Include="source">
+      <UniqueIdentifier>{a0d7f0c4-bf18-41f9-85a1-6552d704ab41}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\drivers">
-      <UniqueIdentifier>{068d5741-6247-4511-9e1d-a4f7b8332479}</UniqueIdentifier>
+    <Filter Include="source\drivers">
+      <UniqueIdentifier>{73f0a732-81fc-405f-92ea-bb871b53048e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Include\drivers">
-      <UniqueIdentifier>{296a1c1f-3bac-44b4-9e76-32de302277c7}</UniqueIdentifier>
+    <Filter Include="include\drivers">
+      <UniqueIdentifier>{916512a1-8f04-4439-88d3-b65edcd59ba1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
+    <ClInclude Include="include\drivers\AirTemp.h">
+      <Filter>include\drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\drivers\altitude.h">
+      <Filter>include\drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\drivers\BatteryTemp.h">
+      <Filter>include\drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\drivers\FlightStates.h">
+      <Filter>include\drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\drivers\Mechanical.h">
+      <Filter>include\drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\drivers\pressure.h">
+      <Filter>include\drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\drivers\UART.h">
+      <Filter>include\drivers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

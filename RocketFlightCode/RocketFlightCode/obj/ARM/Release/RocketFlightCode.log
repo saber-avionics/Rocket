@@ -1,0 +1,20 @@
+﻿  Validating sources
+  Copying sources remotely to '192.168.7.2'
+  Validating architecture
+  Starting remote build
+  Compiling sources:
+  main.cpp
+C:\Users\Mason\Documents\GitHub\Rocket\RocketFlightCode\RocketFlightCode\main.cpp(71,18): warning : conversion to 'float' from 'double' may alter its value [-Wfloat-conversion]
+C:\Users\Mason\Documents\GitHub\Rocket\RocketFlightCode\RocketFlightCode\main.cpp(71,18): warning :    smoothAltitude = (smoothing_factor * baroAltitude + (1 - smoothing_factor)*smoothAltitude);
+C:\Users\Mason\Documents\GitHub\Rocket\RocketFlightCode\RocketFlightCode\main.cpp(71,18): warning :                   ^
+C:\Users\Mason\Documents\GitHub\Rocket\RocketFlightCode\RocketFlightCode\main.cpp(73,18): warning : conversion to 'float' from 'double' may alter its value [-Wfloat-conversion]
+C:\Users\Mason\Documents\GitHub\Rocket\RocketFlightCode\RocketFlightCode\main.cpp(73,18): warning :    smoothVelocity = (smoothing_factor * velocity + (1 - smoothing_factor)*smoothVelocity);
+C:\Users\Mason\Documents\GitHub\Rocket\RocketFlightCode\RocketFlightCode\main.cpp(73,18): warning :                   ^
+C:\Users\Mason\Documents\GitHub\Rocket\RocketFlightCode\RocketFlightCode\main.cpp(39,9): warning : unused variable 'gpsAltitude' [-Wunused-variable]
+C:\Users\Mason\Documents\GitHub\Rocket\RocketFlightCode\RocketFlightCode\main.cpp(39,9): warning :   double gpsAltitude = 0;
+C:\Users\Mason\Documents\GitHub\Rocket\RocketFlightCode\RocketFlightCode\main.cpp(39,9): warning :          ^
+C:\Users\Mason\Documents\GitHub\Rocket\RocketFlightCode\RocketFlightCode\main.cpp(51,13): warning : unused variable 'mech' [-Wunused-variable]
+C:\Users\Mason\Documents\GitHub\Rocket\RocketFlightCode\RocketFlightCode\main.cpp(51,13): warning :   Mechanical mech;
+C:\Users\Mason\Documents\GitHub\Rocket\RocketFlightCode\RocketFlightCode\main.cpp(51,13): warning :              ^
+  Linking objects
+  RocketFlightCode.vcxproj -> C:\Users\Mason\Documents\GitHub\Rocket\RocketFlightCode\RocketFlightCode\bin\ARM\Release\RocketFlightCode.out
