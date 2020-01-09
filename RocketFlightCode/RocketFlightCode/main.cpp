@@ -82,6 +82,11 @@ int main(void) {
 			cout << "UNARMED" << endl;
 			states.unarmed();
 			break;
+		case ALP:
+			//Slowly rising.
+			cout << "ALP" << endl;
+			states.alp(velocity, smoothAltitude, initialAltitude);
+			break;
 		case STANDBY:
 			//I'M READY!!!
 			cout << "STANDBY" << endl;
@@ -91,11 +96,6 @@ int main(void) {
 			//Here we go!
 			cout << "ASCENT" << endl;
 			states.ascent(smoothVelocity, baroAltitude, initialAltitude);
-			break;
-		case FLOATING:
-			//I can see my house from here.
-			cout << "FLOATING" << endl;
-			states.floating(smoothVelocity);
 			break;
 		case DESCENT:
 			//Down, down, down...

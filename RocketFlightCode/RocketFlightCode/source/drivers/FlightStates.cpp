@@ -14,30 +14,29 @@ void States::unarmed() {
 	//Hard lock on doing nothing - transmits sensor stuff and that's it
 }
 
+void States::alp(float velocity, float smoothAltitude, float initialAltitude) {
+	myFS = ALP;
+	//Monitor progress of Launch Platform as it ascends
+	if ((smoothAltitude - initialAltitude) >= 15000 && abs((int16_t)velocity) <= 5) {
+		cout << "Entering Standby" << endl;
+		myFS = STANDBY;
+	}
+}
+
 void States::standby(float smoothAltitude, float initialAltitude) {
 	myFS = STANDBY;
-	//Perform Ground Operations
-	if (smoothAltitude - initialAltitude >= 30) {
-		cout << "Entering ASCENT" << endl;
-		myFS = ASCENT;
+	//Wait for Launch command and monitor float conditions
+	cout << "Stability: " << checkIMUStability << " Propellant Temperature: " << checkPropTemp << endl;
+	if (checkIMUStability && checkPropTemp) {
+		cout << "Ready for Launch" << endl;
 	}
 }
 
 void States::ascent(float velocity, float smoothAltitude, float initialAltitude) {
 	myFS = ASCENT;
 	//Perform Ascent Operations
-	if ((smoothAltitude - initialAltitude) >= 15000 && abs((int16_t)velocity) <= 5) {
-		cout << "Entering FLOATING" << endl;
-		myFS = FLOATING;
-	}
-	
-}
-
-void States::floating(float velocity) {
-	myFS = FLOATING;
-	//Perform Float Operations
-	if (velocity <= -10) {
-		cout << "Entering DESCENT" << endl;
+	if (velocity <= -5) {
+		cout << "Entering Descent" << endl;
 		myFS = DESCENT;
 	}
 }
@@ -67,6 +66,16 @@ void States::landing() {
 	mech.BuzzerOn();
 	//Decrease transmission rate
 	//Run until powered off
+}
+
+bool States::checkIMUStability() {
+	bool stabilityCheck = true;
+	return stabilityCheck;
+}
+
+bool States::checkPropTemp() {
+	bool tempCheck = true;
+	return tempCheck;
 }
 
 /*void States::whichState(flightState newState) {
