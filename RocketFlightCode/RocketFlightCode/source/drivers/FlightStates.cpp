@@ -25,10 +25,16 @@ void States::alp(float velocity, float smoothAltitude, float initialAltitude) {
 
 void States::standby(float smoothAltitude, float initialAltitude) {
 	myFS = STANDBY;
+	bool readyForLaunch = false;
 	//Wait for Launch command and monitor float conditions
 	cout << "Stability: " << checkIMUStability << " Propellant Temperature: " << checkPropTemp << endl;
 	if (checkIMUStability && checkPropTemp) {
+		readyForLaunch = true;
 		cout << "Ready for Launch" << endl;
+		mech.launch(readyForLaunch);
+	}
+	else {
+		readyForLaunch = false;
 	}
 }
 
@@ -44,10 +50,6 @@ void States::ascent(float velocity, float smoothAltitude, float initialAltitude)
 bool States::descent(float velocity, float gForce, bool parachuteDeployed, float altitude) {
 	myFS = DESCENT;
 	//Perform Descent Operations
-	mech.OpenTrapDoor();
-	mech.OpenVent();
-	mech.ExplosiveSeparation();
-	mech.HotwireSeparation();
 	if (parachuteDeployed == false && altitude <= 5000) {
 		//Deploy Parachute
 		parachuteDeployed = mech.DeployParachute();

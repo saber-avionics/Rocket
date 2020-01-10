@@ -8,11 +8,6 @@ void Mechanical::arm() {
 }
 void Mechanical::abort() {
 	//Abort Rocket Launch
-	OpenTrapDoor();
-	//delay a bit
-	OpenVent();
-	ExplosiveSeparation();
-	HotwireSeparation();
 }
 void Mechanical::launch(bool weAreGoForLaunch) {
 	if (weAreGoForLaunch == true) {
