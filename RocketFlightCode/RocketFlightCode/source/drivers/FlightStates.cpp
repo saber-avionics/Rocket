@@ -7,6 +7,8 @@ using namespace std;
 
 Mechanical mech;
 
+bool readyForLaunch = false;
+
 flightState myFS = UNARMED;
 
 void States::unarmed() {
@@ -25,16 +27,29 @@ void States::alp(float velocity, float smoothAltitude, float initialAltitude) {
 
 void States::standby(float smoothAltitude, float initialAltitude) {
 	myFS = STANDBY;
-	bool readyForLaunch = false;
 	//Wait for Launch command and monitor float conditions
-	cout << "Stability: " << checkIMUStability << " Propellant Temperature: " << checkPropTemp << endl;
+	//cout << "Stability: " << checkIMUStability << " Propellant Temperature: " << checkPropTemp << endl;
 	if (checkIMUStability && checkPropTemp) {
 		readyForLaunch = true;
 		cout << "Ready for Launch" << endl;
-		mech.launch(readyForLaunch);
+		//mech.launch(readyForLaunch, false); //Should just use the commands to call launch function
 	}
 	else {
 		readyForLaunch = false;
+		cout << "Not Ready for Launch -";
+		if (checkIMUStability() == false) {
+			cout << " Rocket is not stable.";
+		}
+		if (checkPropTemp() == false) {
+			cout << " Propellant Temp is not adequate.";
+		}
+		cout << endl;
+	}
+	if (checkLaunched) {
+		myFS = ASCENT;
+	}
+	if (checkAborted) {
+		myFS = DESCENT;
 	}
 }
 
@@ -78,6 +93,16 @@ bool States::checkIMUStability() {
 bool States::checkPropTemp() {
 	bool tempCheck = true;
 	return tempCheck;
+}
+
+bool States::checkLaunched() {
+	bool launchedCheck = false;
+	return launchedCheck;
+}
+
+bool States::checkAborted() {
+	bool abortedCheck = false;
+	return abortedCheck;
 }
 
 /*void States::whichState(flightState newState) {

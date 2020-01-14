@@ -16,6 +16,9 @@ using namespace std;
 
 extern float initialAltitude;
 extern flightState myFS;
+extern bool readyForLaunch;
+
+Mechanical mech;
 
 float airTemp;
 uint32_t pressure;
@@ -35,83 +38,83 @@ int main(void) {
 
 	pressure = 0;//getPressure();
 	//float initialAltitude = getAltitude(pressure, airTemp);
-	float baroAltitude = 0;
-	double gpsAltitude = 0;
-	float velocity = 0;
-	double smoothing_factor = 0.50;
-	float smoothAltitude = 0;
-	float smoothVelocity = 0;
-	float gForce = 0;
+float baroAltitude = 0;
+double gpsAltitude = 0;
+float velocity = 0;
+double smoothing_factor = 0.50;
+float smoothAltitude = 0;
+float smoothVelocity = 0;
+float gForce = 0;
 
 //--Initialize Classes
 	//MCP9808 tempC;
-	States states;
-	//Mechanical mech; used globally, not needed here
-	
-	Mechanical mech;
+States states;
+//Mechanical mech; used globally, not needed here
+
+//Mechanical mech;
 
 
 
 //--Initialize Sensors
 	//tempC.begin();
-	altCal(pressure, airTemp);
-	
+altCal(pressure, airTemp);
+
 
 //--Initializing Ground Altitude
 
 
 //--Main Loop--------------------------------------------------------------------------------------
-	while (1) {
-		//executeCommands();
+while (1) {
+	//executeCommands();
 //------Sensor Measurements
-		pressure = 0;
-		//batteryTemp = tempC.readTempC();
-		airTemp = getTemperature();
-		baroAltitude = getBaroAltitude(pressure, airTemp);
-		smoothAltitude = (smoothing_factor * baroAltitude + (1 - smoothing_factor)*smoothAltitude);
-		velocity = getVelocity(baroAltitude);
-		smoothVelocity = (smoothing_factor * velocity + (1 - smoothing_factor)*smoothVelocity);
-		cout << "hello there" << endl;
-		//delay(1000);
+	pressure = 0;
+	//batteryTemp = tempC.readTempC();
+	airTemp = getTemperature();
+	baroAltitude = getBaroAltitude(pressure, airTemp);
+	smoothAltitude = (smoothing_factor * baroAltitude + (1 - smoothing_factor)*smoothAltitude);
+	velocity = getVelocity(baroAltitude);
+	smoothVelocity = (smoothing_factor * velocity + (1 - smoothing_factor)*smoothVelocity);
+	cout << "hello there" << endl;
+	//delay(1000);
 
 //------Flight States
 
-		switch (myFS) {
-		case UNARMED:
-			//Just chillin'.
-			cout << "UNARMED" << endl;
-			states.unarmed();
-			break;
-		case ALP:
-			//Slowly rising.
-			cout << "ALP" << endl;
-			states.alp(velocity, smoothAltitude, initialAltitude);
-			break;
-		case STANDBY:
-			//I'M READY!!!
-			cout << "STANDBY" << endl;
-			states.standby(smoothAltitude, initialAltitude);
-			break;
-		case ASCENT:
-			//Here we go!
-			cout << "ASCENT" << endl;
-			states.ascent(smoothVelocity, baroAltitude, initialAltitude);
-			break;
-		case DESCENT:
-			//Down, down, down...
-			cout << "DESCENT" << endl;
-			parachuteDeployed = states.descent(smoothVelocity, gForce, parachuteDeployed, smoothAltitude);
-			break;
-		case LANDING:
-			//Getting kinda lonely, someone come find me.
-			cout << "LANDING" << endl;
-			states.landing();
-			break;
-		}
-
+	switch (myFS) {
+	case UNARMED:
+		//Just chillin'.
+		cout << "UNARMED" << endl;
+		states.unarmed();
+		break;
+	case ALP:
+		//Slowly rising.
+		cout << "ALP" << endl;
+		states.alp(velocity, smoothAltitude, initialAltitude);
+		break;
+	case STANDBY:
+		//I'M READY!!!
+		cout << "STANDBY" << endl;
+		states.standby(smoothAltitude, initialAltitude);
+		break;
+	case ASCENT:
+		//Here we go!
+		cout << "ASCENT" << endl;
+		states.ascent(smoothVelocity, baroAltitude, initialAltitude);
+		break;
+	case DESCENT:
+		//Down, down, down...
+		cout << "DESCENT" << endl;
+		parachuteDeployed = states.descent(smoothVelocity, gForce, parachuteDeployed, smoothAltitude);
+		break;
+	case LANDING:
+		//Getting kinda lonely, someone come find me.
+		cout << "LANDING" << endl;
+		states.landing();
+		break;
 	}
 
-	return 0;
+}
+
+return 0;
 }
 
 
@@ -119,7 +122,7 @@ int main(void) {
 void executeCommands() {
 	string myCommand = getCommand();
 	cout << "Command Recieved: " << myCommand << endl;
-	/*if (myCommand == "ARM") {
+	if (myCommand == "ARM") {
 		mech.arm(); //I don't think this will ever do anything...
 		myFS = STANDBY;
 	}
@@ -127,8 +130,18 @@ void executeCommands() {
 		mech.abort();
 	}
 	else if (myCommand == "LAUNCH") {
-		bool weAreGoForLaunch = true;
-		mech.launch(weAreGoForLaunch);
+		bool overrideLaunch = false;
+		if (readyForLaunch == true) {
+			mech.launch(readyForLaunch, overrideLaunch);
+		}
+		else {
+			cout << "Launch Conditions are not met, use override if necessary" << endl;
+			cout << "Use override? ";
+			cin >> overrideLaunch;
+			if (overrideLaunch == true){
+				mech.launch(readyForLaunch, overrideLaunch);
+			}
+		}
 	}
 	else if (myCommand == "IMUCAL") {
 		mech.IMUcal();
@@ -158,20 +171,20 @@ void executeCommands() {
 		mech.BuzzerOff();
 	}
 	else if (myCommand == "SETSTATE") {
-		cout << "Which State?";
+		cout << "Which State? ";
 		string stateCommand;
 		cin >> stateCommand;
 		if (stateCommand == "UNARMED") {
 			myFS = UNARMED;
+		}
+		else if (stateCommand == "ALP") {
+			myFS = ALP;
 		}
 		else if (stateCommand == "STANDBY") {
 			myFS = STANDBY;
 		}
 		else if (stateCommand == "ASCENT") {
 			myFS = ASCENT;
-		}
-		else if (stateCommand == "FLOATING") {
-			myFS = FLOATING;
 		}
 		else if (stateCommand == "DESCENT") {
 			myFS = DESCENT;
@@ -186,5 +199,5 @@ void executeCommands() {
 	else {
 		cout << "Not a valid command" << endl;
 	}
-	*/
+	
 }

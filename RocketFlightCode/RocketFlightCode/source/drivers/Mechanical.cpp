@@ -9,7 +9,7 @@ void Mechanical::arm() {
 void Mechanical::abort() {
 	//Abort Rocket Launch
 }
-void Mechanical::launch(bool weAreGoForLaunch) {
+void Mechanical::launch(bool weAreGoForLaunch, bool overrideLaunch) {
 	if (weAreGoForLaunch == true) {
 		//Launch rocket
 	}

@@ -21,6 +21,8 @@ public:
 private:
 	bool checkIMUStability();
 	bool checkPropTemp();
+	bool checkLaunched();
+	bool checkAborted();
 };
 
 

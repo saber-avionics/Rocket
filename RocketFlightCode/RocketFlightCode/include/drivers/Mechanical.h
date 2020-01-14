@@ -8,7 +8,7 @@ class Mechanical {
 public:
 	void arm();
 	void abort();
-	void launch(bool weAreGoForLaunch);
+	void launch(bool weAreGoForLaunch, bool overrideLaunch);
 	void IMUcal();
 	void SoftReset();
 	void HardReset();
